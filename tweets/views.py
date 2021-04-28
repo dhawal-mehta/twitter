@@ -4,7 +4,7 @@ from .models import Tweet
 
 def tweet_list_view(request, *args, **kwargs):
     allTweets = Tweet.objects.all()
-    tweet_list = [{"id":tweet.id, "content": tweet.content} for tweet in allTweets ]
+    tweet_list = [{"id":tweet.id, "content": tweet.content, "likes": 9 } for tweet in allTweets ]
     data = {
         "response": tweet_list
     }
