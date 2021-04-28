@@ -2,5 +2,37 @@
 {% block content %}
 
     <h1>Hello, world!</h1>
+    <div id="tweets">Loading...</div>
 
+    <script>
+        const tweetsElement = document.getElementById("tweets")
+        // tweetsElement.innerHTML = "Loading..."
+
+        const xhr = new XMLHttpRequest()
+        const method = 'GET'
+        const url = "/tweets/"
+        const responseType = "json"
+
+        xhr.responseType = responseType
+        xhr.open(method, url)
+
+        xhr.onload = function(){
+            // console.log( xhr.response )
+            // const tweets = xhr.response.response
+            const serverResponse = xhr.response
+            var listedItems = serverResponse.response
+            var finalTweetsStr = ""
+            for (var i=0;i<listedItems.length;i++){
+                // console.log(listedItems[i])
+                var currentItems =  "<div><h2>"+ listedItems[i].id  +"</h2>" + "<p>" +  listedItems[i].content  + "</p></div>"
+                finalTweetsStr += currentItems
+            }
+            
+            tweetsElement.innerHTML = finalTweetsStr
+
+        }
+        
+        xhr.send()
+
+    </script>
 {% endblock %}
