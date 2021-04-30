@@ -8,7 +8,7 @@
 
 <div class="row mb-4">
     <div class='col-md-4 mx-auto col-10'>
-        <form class="form" method="POST" action="/create/">
+        <form class="form" id="tweetCreateForm" method="POST" action="/create/">
             {% csrf_token %}
             <input type="hidden" value='/' name='next' />
             <textarea required="required" class='form-control' name='content' placeholder="What's happening?"></textarea>
@@ -21,28 +21,24 @@
 <div id="tweets" class="row">Loading...</div>
 
 <script>
-    const tweetsElement = document.getElementById("tweets")
+const tweetsCreateFormEl = document.getElementById("tweetCreateForm")
+const tweetsEl = document.getElementById("tweets")
     // tweetsElement.innerHTML = "Loading..."
 
+tweetsCreateFormEl.addEventListener("submit", handleFormSubmit)
+
+
+function handleFormSubmit(event){
+    event.preventDefault()
+    console.log(event)    
+    
+}
+
+function loadTweets(tweetsElement){
     const xhr = new XMLHttpRequest()
     const method = 'GET'
     const url = "/tweets/"
     const responseType = "json"
-    
-    function handleDidLike(tweet_id, currentCount){
-
-        // console.log(tweet_id, currentCount)
-
-    }
-
-    function likeBtn(tweet){
-        return "<button class='btn btn-primary' onclick=handleDidLike(" + tweet.id + "," +  tweet.likes + ")>"+ tweet.likes +" Likes</button>"
-    }
-
-    function  formatTweetElement(tweet){
-        var currentItems =  "<div class='mb-4 col-12 border rounded p-3' id='"+ tweet.id +"'>" + "<p>" +  tweet.content  + "</p><div >" + likeBtn(tweet) +"</div></div>"
-        return currentItems
-    }
 
     xhr.responseType = responseType
     xhr.open(method, url)
@@ -64,6 +60,26 @@
     }
     
     xhr.send()
+} 
+
+loadTweets(tweetsEl)
+
+function handleDidLike(tweet_id, currentCount){
+
+    // console.log(tweet_id, currentCount)
+
+}
+
+function likeBtn(tweet){
+    return "<button class='btn btn-primary' onclick=handleDidLike(" + tweet.id + "," +  tweet.likes + ")>"+ tweet.likes +" Likes</button>"
+}
+
+function  formatTweetElement(tweet){
+    var currentItems =  "<div class='mb-4 col-12 border rounded p-3' id='"+ tweet.id +"'>" + "<p>" +  tweet.content  + "</p><div >" + likeBtn(tweet) +"</div></div>"
+    return currentItems
+}
+
+ 
 
 </script>
 {% endblock %}
