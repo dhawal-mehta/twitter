@@ -25,7 +25,7 @@ SECRET_KEY = 'z@csvu9)5(#bpjl-@6flylm8(3c5j_ccv3eg31t!l-m(1goqt('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost" ,".twitterc.com"]
 
 
 # Application definition
