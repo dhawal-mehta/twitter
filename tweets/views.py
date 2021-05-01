@@ -15,6 +15,8 @@ def tweet_list_view(request, *args, **kwargs):
     return JsonResponse(data)
 
 def tweet_create_view(request, *args, **kwargs):
+    # print("ajax", request.is_ajax())
+    
     form  = TweetForm(request.POST or None)
     # print("post data is", request.POST)
     
@@ -22,13 +24,22 @@ def tweet_create_view(request, *args, **kwargs):
     # print("next_url", next_url)
 
 
+
     if form.is_valid():
         obj = form.save(commit=False)
         obj.save()
         # if next_url != None :
+        
+        if request.is_ajax():
+            return JsonResponse(obj.serialize(), status=201)
+
         if next_url != None and is_safe_url(next_url, settings.ALLOWED_HOSTS):
-            return redirect(next_url)        
+            return redirect(next_url)   
+             
         form = TweetForm()
+    else:
+        if request.is_ajax():
+            return JsonResponse(form.errors, status=400)
 
     # if form.errors:
     #     if
