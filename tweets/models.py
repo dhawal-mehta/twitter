@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Tweet(models.Model):
-    user = models.ForeignKey(User,default=1, on_delete=models.CASCADE   )
+    user = models.ForeignKey(User, on_delete=models.CASCADE   )
     content = models.TextField(blank=True, null=True)  
 
     class Meta:

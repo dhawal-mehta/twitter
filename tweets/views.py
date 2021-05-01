@@ -16,7 +16,13 @@ def tweet_list_view(request, *args, **kwargs):
 
 def tweet_create_view(request, *args, **kwargs):
     # print("ajax", request.is_ajax())
-    
+    if not request.user.is_authenticated:
+        # print("not logged in")
+        if request.is_ajax():
+            return JsonResponse({}, status=401)
+        # have to redirect to login route
+        return redirect("/")
+
     form  = TweetForm(request.POST or None)
     # print("post data is", request.POST)
     
@@ -27,6 +33,7 @@ def tweet_create_view(request, *args, **kwargs):
 
     if form.is_valid():
         obj = form.save(commit=False)
+        obj.user = request.user
         obj.save()
         # if next_url != None :
         
@@ -38,6 +45,7 @@ def tweet_create_view(request, *args, **kwargs):
              
         form = TweetForm()
     else:
+
         if request.is_ajax():
             return JsonResponse(form.errors, status=400)
 
