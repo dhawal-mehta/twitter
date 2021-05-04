@@ -25,6 +25,8 @@ SECRET_KEY = 'z@csvu9)5(#bpjl-@6flylm8(3c5j_ccv3eg31t!l-m(1goqt('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+MAX_TWEET_LENGTH = 240
+
 ALLOWED_HOSTS = ["127.0.0.1","localhost" ,".twitterc.com"]
 
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

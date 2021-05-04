@@ -68,12 +68,14 @@ function handleFormSubmit(event){
             alert(errorMsg)
             // form.reset()
         }
+        else if(xhr.status === 403){
+            alert("Unauthorised access.")
+        }
         else{
             alert("Some error occurred please try again later.")
         }
     }
-
-    
+        
     xhr.send(myFormData)
 }
 
@@ -90,7 +92,7 @@ function loadTweets(tweetsElement){
         // console.log( xhr.response )
         // const tweets = xhr.response.response
         const serverResponse = xhr.response
-        var listedItems = serverResponse.response
+        var listedItems = serverResponse
         var finalTweetsStr = ""
         for (var i=0;i<listedItems.length;i++){
             // console.log(listedItems[i])
