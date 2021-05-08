@@ -134,11 +134,13 @@ def tweet_action_view(request, *args, **kwargs):
             return Response({}, status=404)
 
         if action == "like":
-            tweet.likes.add(request.user)
-            return Response(serializer.data, status=200)
-        
-        elif action == "unlike":
-            tweet.likes.remove(request.user)
+            print("likes are here", tweet.likes)
+            if request.user in tweet.likes.all():
+                tweet.likes.remove( request.user )
+            else:
+                tweet.likes.add(request.user)
+                return Response(serializer.data, status=200)
+          
         
         elif action == "retweet":
             pass          
