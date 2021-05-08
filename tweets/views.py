@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from .models import Tweet
 
 from .forms import TweetForm
-from .serializers import TweetSerializer
+from .serializers import TweetSerializer, TweetActionSerializer
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
@@ -118,6 +118,32 @@ def tweet_delete_view(request, id, *args, **kwargs):
     obj.delete()
  
     return Response({"message": "Tweet has been deleted."}, status=200)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])  
+def tweet_action_view(request, *args, **kwargs):
+    # print(request.POST, request.data)
+    serializer = TweetActionSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        data = serializer.validated_data
+        id = data.get("id")
+        action = data.get("action")
+
+        tweet = Tweet.objects.get(id=id)
+        if not tweet:
+            return Response({}, status=404)
+
+        if action == "like":
+            tweet.likes.add(request.user)
+            return Response(serializer.data, status=200)
+        
+        elif action == "unlike":
+            tweet.likes.remove(request.user)
+        
+        elif action == "retweet":
+            pass          
+ 
+    return Response({}, status=200)
 
 def home_view(request, *args, **kwargs):
     return render(request, 'tweets/index.html', context={}, status=200)
