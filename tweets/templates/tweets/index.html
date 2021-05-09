@@ -125,7 +125,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function handleAction(tweet_id, currentCount, action){
+function handleAction(tweet_id, action){
     // console.log(action)
     // console.log(tweet_id, currentCount)
     const url = "/api/tweets/action/"
@@ -154,13 +154,13 @@ function handleAction(tweet_id, currentCount, action){
 }
 
 function likeBtn(tweet){
-    return "<button class='btn btn-primary'  onclick=handleAction(" + tweet.id + "," +  tweet.likes + ",\"like\")>"+ tweet.likes +" Likes</button>"
+    return "<button class='btn btn-primary'  onclick=handleAction(" + tweet.id  + ",\"like\")>"+ tweet.likes +" Likes</button>"
 }
 
 
 function retweetBtn(tweet){
 
-    return "<button class='btn btn-outline-primary ml-4'  onclick=handleAction(" + tweet.id + "," +  tweet.likes  + ",\"retweet\")>Retweet</button>"
+    return "<button class='btn btn-outline-primary ml-4'  onclick=handleAction(" + tweet.id + ",\"retweet\")>Retweet</button>"
 
 }
 
