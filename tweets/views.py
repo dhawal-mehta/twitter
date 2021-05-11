@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import json
 # from django.http import HttpResponse, Http404, JsonResponse
 # from django.utils.http import is_safe_url
 # from django.conf import settings
@@ -122,15 +123,18 @@ def tweet_delete_view(request, id, *args, **kwargs):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])  
 def tweet_action_view(request, *args, **kwargs):
-    # print(request.POST, request.data)
-    serializer = TweetActionSerializer(data=request.data)
+    # print(request.data)
+
+    serializer = TweetActionSerializer(data = request.data)
     if serializer.is_valid(raise_exception=True):
+        # print(serializer , "data")
         data = serializer.validated_data
+        # print(data , "data")
         id = data.get("id")
         action = data.get("action")
         content = Tweet.objects.get(id=id).content
         
-        # print(request.data)
+        # print( content )
         # content = data.get("content")
 
         tweet = Tweet.objects.get(id=id)
@@ -138,12 +142,16 @@ def tweet_action_view(request, *args, **kwargs):
             return Response({}, status=404)
 
         if action == "like":
-            print("likes are here", tweet.likes)
+            
+            # print("likes are here", TweetLikeSerialize(tweet) )
+            tweetSerializer = TweetSerializer(tweet)
             if request.user in tweet.likes.all():
                 tweet.likes.remove( request.user )
             else:
                 tweet.likes.add(request.user)
-                return Response(serializer.data, status=200)
+                # print(serializer.data )
+            
+            return Response(tweetSerializer.data, status=200)
           
         
         elif action == "retweet":
@@ -151,7 +159,8 @@ def tweet_action_view(request, *args, **kwargs):
             new_tweet = Tweet.objects.create(user=request.user, parent=tweet,content=content)
             serializer = TweetSerializer(new_tweet)
 
-            return Response(serializer.data, status=200)
+            # print(serializer.data)
+            return Response(serializer.data, status=201)
 
     return Response({}, status=200)
 
