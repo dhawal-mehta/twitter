@@ -98,7 +98,7 @@ def tweet_create_view(request, *args, **kwargs):
     serializer = TweetSerializer(data=data)
        
     if serializer.is_valid(raise_exception=True):
-        obj = serializer.save(user=request.user)
+        serializer.save(user=request.user)
         return Response(serializer.data, status=201)
 
     return Response({}, status=400)
@@ -157,7 +157,7 @@ def tweet_action_view(request, *args, **kwargs):
         elif action == "retweet":
             print("retweeting", content)
             new_tweet = Tweet.objects.create(user=request.user, parent=tweet,content=content)
-            serializer = TweetSerializer(new_tweet)
+            serializer = TweetSerializer( new_tweet )
 
             # print(serializer.data)
             return Response(serializer.data, status=201)

@@ -27,7 +27,7 @@ DEBUG = True
 
 MAX_TWEET_LENGTH = 240
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost" ,".twitterc.com"]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,".twitterc.com"]
 
 
 # Application definition
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'twitter.urls'
@@ -123,6 +125,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_URLS_REGEX = r'/api/.*$'
 
 DEFAULT_RENDERER_CLASSES = [
         'rest_framework.renderers.JSONRenderer',
