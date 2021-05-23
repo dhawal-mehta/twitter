@@ -1,37 +1,34 @@
- import Tweet from '../molecules/Tweet'
- import React, {useEffect, useState} from 'react'
+import Tweet from '../molecules/Tweet'
+import React, {useEffect, useState} from 'react'
+import {tweetsList, tweetCreate } from '../XHR/lookup'
 
-function loadTweets(tweetsCbk){
-    const xhr = new XMLHttpRequest()
-    const method = 'GET'
-    const url = "http://localhost:8000/api/tweets/"
-    const responseType = "json"
+
   
-    xhr.responseType = responseType
-    xhr.open(method, url)
-   
-    xhr.onload = function(){
-      const res = xhr.response
-      // console.log(res) 
-      tweetsCbk(res)
-      // return  xhr.response
-    }
-    
-    xhr.send()
-  } 
-  
-  
-export default function TweetList(props){
+function TweetList(props){
+    const[tweetsInit, setTweetsInit] = useState([])
     const[tweets, setTweets] = useState([])
-  
-    const getTweets =  () => {
-      // laodTweets()
-      loadTweets(setTweets)
-      // setTweets(tweetItems)
+
+    // console.log(props.newTweet, "new Tweet from props")
+
+    useEffect(() => {
+      const finalLength = props.newTweets.length + tweetsInit.length
+      
+      // console.log(finalLength, tweets, tweetsInit)
+
+      if ( finalLength > tweets.length){
+        setTweets([...props.newTweets].concat(tweetsInit))
+      }
+
+    }, [props, tweetsInit, tweets])
+
+
+    function getTweets(){
+      tweetsList("GET", "tweets/", setTweetsInit)
     }
   
     useEffect(getTweets, [])
-  
+    
+    // console.log("nomal call")
     return (
       <>
         {
@@ -41,3 +38,38 @@ export default function TweetList(props){
     );
   
   }
+
+export function TweetsComponent(props){
+    
+    const [newTweets, setNewTweet] = useState([])
+
+    const textAreaRef = React.createRef()
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault()
+
+        function callBck(response){
+          setNewTweet([response].concat(newTweets))
+        }
+
+        tweetCreate('POST', "tweets/create/",callBck  ,{content:textAreaRef.current.value})
+
+        textAreaRef.current.value = ''
+
+    }
+    
+    return <div className={props.className}>
+            <div className="col-12 mb-3 mt-3">
+
+              <form onSubmit={handleSubmit} >
+                  <textarea ref={textAreaRef} required={true} className='form-control' name="tweet"></textarea>
+                  <button type='submit' className="btn btn-primary my-3">Tweet</button>
+              </form>
+              
+              <TweetList newTweets={newTweets}/>
+
+            </div>
+          </div>
+
+}

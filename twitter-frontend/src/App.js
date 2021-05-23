@@ -1,10 +1,11 @@
 import './App.css';
-import TweetList from './organisms/TweetList'
+import { TweetsComponent} from './organisms/TweetList'
 
 function App() {
   return (
     <div className="App">
-      <TweetList />
+      <TweetsComponent />
+      
     </div>
   );
 }
