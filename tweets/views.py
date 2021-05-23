@@ -94,7 +94,10 @@ def home_detail_view(request, id, *args, **kwargs):
 # @authentic  ation_classes([SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def tweet_create_view(request, *args, **kwargs):
-    data = request.POST 
+    data = request.data
+    
+    # print(data)
+    
     serializer = TweetSerializer(data=data)
        
     if serializer.is_valid(raise_exception=True):

@@ -27,7 +27,7 @@ DEBUG = True
 
 MAX_TWEET_LENGTH = 240
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,".twitterc.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost" ,".twitterc.com"]
 
 
 # Application definition
@@ -47,12 +47,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    
 ]
 
 ROOT_URLCONF = 'twitter.urls'
@@ -126,24 +127,38 @@ USE_TZ = True
 STATIC_URL = '/static/'
 TWEET_ACTIONS = ["like", "unlike", "retweet"]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_ALL_ORIGINS = False
 CORS_URLS_REGEX = r'/api/.*$'
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+# # CORS_ALLOW_METHODS = [ 'POST', 'OPTIONS']
+CORS_ALLOW_HEADERS = [
+    'x-requested-with',
+    'content-type',
+    'http_x_requested_with',
+    'x-csrftoken'
+]
 
 DEFAULT_RENDERER_CLASSES = [
         'rest_framework.renderers.JSONRenderer',
     ]
 
+DEFAULT_AUTHENTICATION_CLASSES = [
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        
+    ]
 
 if DEBUG:
     DEFAULT_RENDERER_CLASSES += [
          'rest_framework.renderers.BrowsableAPIRenderer' 
         ]
+    DEFAULT_AUTHENTICATION_CLASSES += ['tweets.rest_api.dev.DevAuthentication']
 
+# SESSION_COOKIE_SAMESITE = True
+# CORS_ALLOW_CREDENTIALS= True
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication'
-    ],    
+    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTHENTICATION_CLASSES,
+    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAdminUser'],
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
-
 }
