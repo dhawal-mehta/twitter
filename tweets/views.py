@@ -76,6 +76,11 @@ from rest_framework.authentication import SessionAuthentication
 @api_view(['GET'])
 def tweet_list_view(request, *args, **kwargs):
     allTweets = Tweet.objects.all()
+    username = request.GET.get('username')
+    
+    if username != None:
+        allTweets = allTweets.filter(user__username=username)
+
     serializer = TweetSerializer(allTweets, many=True)
 
     return Response(serializer.data)
