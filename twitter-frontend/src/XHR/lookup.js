@@ -44,8 +44,22 @@ function lookup(apimethod, endpoint,callBck ,data=null){
 } 
 
 
-export function tweetsList(apimethod, endpoint, tweetsCbk){
+export function tweetsList(apimethod, endpoint, tweetsCbk, username){
+    
+    if (username){
+        endpoint += `?username=${username}`
+    }
+        
     lookup(apimethod, endpoint, tweetsCbk)
+}
+
+export function tweetsDetail(apimethod, endpoint, tweetsCbk, tweetId){
+    
+    // if (tweetId){
+    //     endpoint += `${tweetId}/`
+    // }
+        
+    lookup(apimethod, endpoint + `${tweetId}/`, tweetsCbk)
 }
 
 export function tweetCreate(apimethod, endpoint, tweetsCbk, data){
