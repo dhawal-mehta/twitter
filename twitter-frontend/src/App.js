@@ -1,10 +1,15 @@
 import './App.css';
-import { TweetsComponent} from './organisms/TweetList'
+import Homepage from './pages/HomePage'
+// import React from 'react';
 
-function App() {
+// const e = React.createElement
+
+function App(props) {
+  // console.log(props)
   return (
     <div className="App">
-      <TweetsComponent />
+
+      <Homepage {...props} />
       
     </div>
   );

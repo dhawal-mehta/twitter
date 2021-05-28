@@ -3,11 +3,11 @@ import React, {useEffect, useState} from 'react'
 import {tweetsList, tweetCreate } from '../XHR/lookup'
 
  
-function TweetList(props){
+export default function TweetList(props){
     const[tweetsInit, setTweetsInit] = useState([])
     const[tweets, setTweets] = useState([])
 
-    let {newTweets, setNewTweets } = props
+    let {newTweets, setNewTweets, username } = props
 
     const handleDidRetweet = (newTweet) => {
     
@@ -27,15 +27,14 @@ function TweetList(props){
 
     }, [props, tweetsInit, tweets])
 
-
     function getTweets(){
-      tweetsList("GET", "tweets/", setTweetsInit)
+      tweetsList("GET", "tweets/", setTweetsInit, username)
     }
   
-    useEffect(getTweets, [])
+    useEffect(getTweets, [username])
 
     // console.log("nomal call")
-    console.log(tweets, "rendering tweets from tweet list")
+    // console.log(tweets, "rendering tweets from tweet list")
     return (
       <>
         {
@@ -48,40 +47,45 @@ function TweetList(props){
 
 
 
-export function TweetsComponent(props){
+// function TweetsComponent(props){
     
-    const [newTweets, setNewTweets] = useState([])
+//     const [newTweets, setNewTweets] = useState([])
 
-    const textAreaRef = React.createRef()
+//     const canTweet = props.canTweet === "false" ? false : true
     
-    function createTweetCallBck(response){
-      // console.log(response, "response form tweetComponent")
-      setNewTweets([response].concat(newTweets))
-      // console.log(newTweets, "after insert")
-    }
+//     // console.log(canTweet, props.canTweet)
 
-    const handleSubmit = (e) => {
+//     const textAreaRef = React.createRef()
+    
+//     function createTweetCallBck(response){
+//       // console.log(response, "response form tweetComponent")
+//       setNewTweets([response].concat(newTweets))
+//       // console.log(newTweets, "after insert")
+//     }
 
-        e.preventDefault()
+//     const handleSubmit = (e) => {
 
-        tweetCreate('POST', "tweets/create/",createTweetCallBck , {content:textAreaRef.current.value, likes:0})
+//         e.preventDefault()
 
-        textAreaRef.current.value = ''
+//         tweetCreate('POST', "tweets/create/",createTweetCallBck , {content:textAreaRef.current.value, likes:0})
 
-    }
+//         textAreaRef.current.value = ''
+
+//     }
 
     
-    return <div className={props.className}>
-            <div className="col-12 mb-3 mt-3">
+//     return <div className={props.className}>
+            
+//             <div className="col-12 mb-3 mt-3">
+//             { canTweet &&
+//               <form onSubmit={handleSubmit} >
+//                   <textarea ref={textAreaRef} required={true} className='form-control' name="tweet"></textarea>
+//                   <button type='submit' className="btn btn-primary my-3">Tweet</button>
+//               </form>
+//             } 
+//               <TweetList newTweets={newTweets}  setNewTweets={setNewTweets} {...props} />
 
-              <form onSubmit={handleSubmit} >
-                  <textarea ref={textAreaRef} required={true} className='form-control' name="tweet"></textarea>
-                  <button type='submit' className="btn btn-primary my-3">Tweet</button>
-              </form>
-              
-              <TweetList newTweets={newTweets}  setNewTweets={setNewTweets} />
+//             </div>
+//           </div>
 
-            </div>
-          </div>
-
-}
+// }

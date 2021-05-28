@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const tweetsEl = document.getElementById('root')
+const e = React.createElement
+// const NewApp = e(App, tweetsEl.dataset)
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* // <NewApp /> */}
+    {e(App, tweetsEl.dataset)}
   </React.StrictMode>,
   document.getElementById('root')
 );
