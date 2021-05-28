@@ -25,7 +25,6 @@ function lookup(apimethod, endpoint,callBck ,data=null){
 
     xhr.onload = function(){
       const res = xhr.response
-      console.log(res)
 
       if (xhr.status === 200){
         //   console.log("xhr response", xhr.response)
@@ -52,6 +51,16 @@ export function tweetsList(apimethod, endpoint, tweetsCbk){
 export function tweetCreate(apimethod, endpoint, tweetsCbk, data){
     lookup(apimethod, endpoint, tweetsCbk, data)
 }
+
+export function tweetLike(apimethod, endpoint, tweetLikeCbk, data){
+    lookup(apimethod, endpoint, tweetLikeCbk, data)
+}
+
+export function tweetRetweet(apimethod, endpoint, tweetLikeCbk, data){
+    lookup(apimethod, endpoint, tweetLikeCbk, data)
+}
+
+
 
 function getCookie(name) {
     let cookieValue = null;

@@ -1,18 +1,54 @@
 from rest_framework import serializers
 from django.conf import settings
 from .models import Tweet
+from django.utils import timezone
 
 MAX_TWEET_LENGTH = settings.MAX_TWEET_LENGTH
 
-class TweetSerializer(serializers.ModelSerializer):
+class TweetCreateSerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField(read_only=True)
+    # parent = TweetSerializer(read_only=True)
+    # modified =  serializers.HiddenField(default=timezone.now)
+   
+    # parent = serializers.SerializerMethodField()
 
     class Meta:
         model = Tweet
-        fields = ['id', 'content','likes']
+        fields = ['id', 'content','likes', 'parent']
 
     def get_likes(self, obj):
+        # print()
         return obj.likes.count()
+        
+
+class TweetSerializer(serializers.ModelSerializer):
+    likes = serializers.SerializerMethodField(read_only=True)
+    parent = TweetCreateSerializer(read_only=True)
+    # modified =  serializers.HiddenField(default=timezone.now)
+   
+    # parent = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Tweet
+        fields = ['id', 'content','likes', 'parent']
+
+
+
+
+    # def get_parent(self, obj):
+    #     # print(obj, "in the porche")
+    #     parentData = None
+
+    #     if obj.parent:
+    #         parentData =  {'id':obj.parent.id, 'content':obj.parent.content, 'likes':obj.parent.likes }
+        
+    #     return parentData 
+
+
+    def get_likes(self, obj):
+        # print()
+        return obj.likes.count()
+
 
     def validate_content(self, value):
         if len(value) > MAX_TWEET_LENGTH:
@@ -33,7 +69,6 @@ class TweetSerializer(serializers.ModelSerializer):
 class TweetActionSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     action = serializers.CharField()
-    # likes = serializers.IntegerField()
     content = serializers.CharField(allow_blank=True, required=False)
 
     # def get_content(self, obj):
