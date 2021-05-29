@@ -1,8 +1,7 @@
 import './App.css';
-import Homepage from './pages/HomePage'
-// import React from 'react';
+import { Homepage } from './pages/HomePage'
 
-// const e = React.createElement
+// const tweetDetailEl = document.querySelectorAll('tweet-detail')
 
 function App(props) {
   // console.log(props)
@@ -10,6 +9,7 @@ function App(props) {
     <div className="App">
 
       <Homepage {...props} />
+      
       
     </div>
   );

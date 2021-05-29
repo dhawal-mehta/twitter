@@ -53,7 +53,7 @@ export function tweetsList(apimethod, endpoint, tweetsCbk, username){
     lookup(apimethod, endpoint, tweetsCbk)
 }
 
-export function tweetsDetail(apimethod, endpoint, tweetsCbk, tweetId){
+export function tweetDetail(apimethod, endpoint, tweetsCbk, tweetId){
     
     // if (tweetId){
     //     endpoint += `${tweetId}/`

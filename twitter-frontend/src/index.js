@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import TweetDetail from './organisms/TweetDetail'
 
 const tweetsEl = document.getElementById('root')
+// const tweetDetailEl = document.querySelectorAll('.tweet-detail')
+
+
 const e = React.createElement
 // const NewApp = e(App, tweetsEl.dataset)
+
+// tweetDetailEl.forEach( container => {
+//   ReactDOM.render(
+//   <>
+//     {e(TweetDetail, container.dataset)}
+//   </>,
+//   container
+//   )
+// // );  
+// })
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +29,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

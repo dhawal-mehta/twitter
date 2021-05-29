@@ -1,12 +1,10 @@
-import React, { useState} from 'react'
-import { tweetCreate } from '../XHR/lookup'
+import React, {useState} from 'react'
+import { tweetCreate} from '../XHR/lookup'
 
 import TweetList from '../organisms/TweetList'
 
+export  function Homepage(props){
 
-
-export default function TweetsComponent(props){
-    
     const [newTweets, setNewTweets] = useState([])
 
     const canTweet = props.canTweet === "false" ? false : true
@@ -33,17 +31,15 @@ export default function TweetsComponent(props){
 
     
     return <div className={props.className}>
-            
             <div className="col-12 mb-3 mt-3">
-            { canTweet &&
-              <form onSubmit={handleSubmit} >
-                  <textarea ref={textAreaRef} required={true} className='form-control' name="tweet"></textarea>
-                  <button type='submit' className="btn btn-primary my-3">Tweet</button>
-              </form>
-            } 
+              { canTweet &&
+                <form onSubmit={handleSubmit} >
+                    <textarea ref={textAreaRef} required={true} className='form-control' name="tweet"></textarea>
+                    <button type='submit' className="btn btn-primary my-3">Tweet</button>
+                </form>
+              } 
               <TweetList newTweets={newTweets}  setNewTweets={setNewTweets} {...props} />
-
             </div>
           </div>
-
 }
+
