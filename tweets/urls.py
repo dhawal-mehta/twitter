@@ -19,10 +19,8 @@ from . import views as tweetsViews
 
 urlpatterns = [
     
-    path('', tweetsViews.tweet_list_view),
-    path('create/', tweetsViews.tweet_create_view),
-    path('action/', tweetsViews.tweet_action_view),
-    path('<int:id>/', tweetsViews.home_detail_view),
-    path('<int:id>/delete/', tweetsViews.tweet_delete_view),
+    path('', tweetsViews.tweets_list_view),
+    path('<int:tweet_id>/', tweetsViews.tweets_detail_view),
+    path('profile/<str:username>/', tweetsViews.tweets_profile_view),
 
 ]
