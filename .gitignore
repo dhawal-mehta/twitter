@@ -145,6 +145,11 @@ node_modules/
 # production
 /build
 
+/static
+/static-root
+
+/tweets/templates/react
+
 # misc
 .DS_Store
 .env.local
