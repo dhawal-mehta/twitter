@@ -23,12 +23,14 @@ export default function Tweet(props){
 
     return (
     <div className={className}>
+
         
-        <div>           
-            <p> {tweet.id} - { tweet.content } </p>
-            <ParentTweet tweet={tweet} handleDidRetweet={handleDidRetweet}/>
-        </div>
-       
+          <div>
+              <p> {tweet.id} - { tweet.content } </p>
+              { tweet.parent && tweet.parent.content &&
+                <ParentTweet tweet={tweet} handleDidRetweet={handleDidRetweet}/>
+              }
+      </div>
        { props.hideButtons !== true && 
         <>
             <LikeBtn tweet={tweet} className="btn btn-primary" />
