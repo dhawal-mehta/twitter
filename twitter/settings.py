@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost" ,".twitterc.com"]
 
 INSTALLED_APPS = [
     'tweets',
+    'accounts',
+    'twitter',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,7 +164,7 @@ if DEBUG:
     DEFAULT_RENDERER_CLASSES += [
          'rest_framework.renderers.BrowsableAPIRenderer' 
         ]
-    DEFAULT_AUTHENTICATION_CLASSES += ['tweets.rest_api.dev.DevAuthentication']
+# DEFAULT_AUTHENTICATION_CLASSES += ['tweets.rest_api.dev.DevAuthentication']
 
 # SESSION_COOKIE_SAMESITE = True
 # CORS_ALLOW_CREDENTIALS= True
