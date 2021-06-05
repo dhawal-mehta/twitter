@@ -30,10 +30,13 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
     <div  id="root"></div>
+    <div id='tweet-container'></div>
+    
     <!-- <div class="tweet-detail" data-tweet-id="3" data-class-name="col-6 mx-auto"></div> -->
     <!-- <div id="root"  data-username="dhawal"  data-can-tweet="false"></div> -->
-    
+     
     
     <!--
       This HTML file is a template.
@@ -46,6 +49,23 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
+    <script>
+      var path = window.location.pathname
+      var idRegex = /(?<tweetId>\d+)/
+      
+      var match = path.match(idRegex)
+      
+      
+      if (match && match.groups.tweetId){
+        var tweetId = match.groups.tweetId
+        var rootContainer = document.getElementById("root")
+        rootContainer.className="d-none"
+        var tweetEl = '<div class="tweet-detail" data-tweet-id="' + tweetId + '" data-class-name="col-6 mx-auto"></div>'
+        var mainContainer = document.getElementById("tweet-container")
+        mainContainer.innerHTML = tweetEl
+}
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 

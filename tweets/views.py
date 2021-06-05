@@ -21,7 +21,6 @@ def tweets_list_view(request, *args, **kwargs):
 
 def tweets_detail_view(request ,tweet_id ,*args, **kwargs):
     # username = None
-
     # if request.user.is_authenticated:
     #     username = request.user.username
 
@@ -30,8 +29,7 @@ def tweets_detail_view(request ,tweet_id ,*args, **kwargs):
 
 def tweets_profile_view(request, username ,*args, **kwargs):
     # username = None
-
     # if request.user.is_authenticated:
-    #     username = request.user.username
+    #     username = r>>equest.user.username
 
     return render(request, 'tweets/profile.html', context={"profile_username": username})
