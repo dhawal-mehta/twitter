@@ -1,4 +1,4 @@
-"""twitter URL Configuration
+""" twitter URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,17 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views as accountViews
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('account/', include('accounts.urls')),
-    path('', include('tweets.urls') ),
-    path('api/tweets/', include('tweets.api.urls')),
-]
+    
+    # path('', tweetsViews.tweets_list_view),    
+    path('login/', accountViews.login_view),
+    path('logout/', accountViews.logout_view),
+    path('register/', accountViews.register_view)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
