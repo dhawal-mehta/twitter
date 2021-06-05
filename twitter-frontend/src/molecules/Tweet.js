@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import RetweetBtn from "../atoms/RetweetBtn"
 import LikeBtn from "../atoms/LikeBtn"
+import ViewBtn from "../atoms/ViewBtn"
 
 
 export function ParentTweet(props){
@@ -31,11 +32,16 @@ export default function Tweet(props){
                 <ParentTweet tweet={tweet} handleDidRetweet={handleDidRetweet}/>
               }
       </div>
-       { props.hideButtons !== true && 
-        <>
+       
+      <>
+        { props.hideButtons !== true && 
+            <>
             <LikeBtn tweet={tweet} className="btn btn-primary" />
             <RetweetBtn tweet={tweet} handleDidRetweet={handleDidRetweet} className="btn btn-primary ml-5" />
-       </> }
+            </>
+        }
+        <ViewBtn tweet={tweet} className="btn btn-outline-primary ml-5" />
+      </> 
 
     </div> ) 
 } 

@@ -10,7 +10,7 @@ export default function TweetsDetailComponent(props){
   
     const handleBackendLookup = (response)=> {
       setTweet(response)
-      console.log(response, "from Tweet Detail")
+      // console.log(response, "from Tweet Detail")
     }
   
     useEffect(() => {
