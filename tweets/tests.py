@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from rest_framework.test import APIClient
-# Create your tests here.
+
 from .models import Tweet
 from django.contrib.auth.models import User
 
@@ -48,6 +48,14 @@ class TweetTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json().get("likes") , 1)
 
+        user = self.user
+        usr_likes_count = user.tweetlike_set.count()
+        self.assertEqual(usr_likes_count, 1)
+        
+        #   = user.tweet_user.count()
+        # self.assertEqual(usr_likes_count, 1)
+
+ 
     def test_unlike_action(self):
         client = self.get_client()
         response = client.post("/api/tweets/action/", {"id":1, "action": "like"})
@@ -102,3 +110,8 @@ class TweetTestCase(TestCase):
 
         response = client.delete("/api/tweets/3/delete/")
         self.assertEqual(response.status_code, 401)
+    
+    def test_tweet_created(self):
+        user = self.user
+        self.assertEqual(user.tweets.count(), 2)
+
