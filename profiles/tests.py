@@ -9,10 +9,10 @@ class ProfileTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testUser", password="#lolta123#")
         self.user2 = User.objects.create_user(username="testUser2", password="#lolta123#")
-#         # Tweet.objects.create(content= "my first tweet", user=self.user)
-#         # Tweet.objects.create(content="my 2nd tweet", user=self.user)
-#         # Tweet.objects.create(content="my third tweet", user=self.user2)  
-#         # self.currentCount = Tweet.objects.all().count()
+        # Tweet.objects.create(content= "my first tweet", user=self.user)
+        # Tweet.objects.create(content="my 2nd tweet", user=self.user)
+        # Tweet.objects.create(content="my third tweet", user=self.user2)  
+        # self.currentCount = Tweet.objects.all().count()
 
     def test_profile_created(self):
         self.assertEqual(Profile.objects.count() , 2)

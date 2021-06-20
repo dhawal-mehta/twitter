@@ -110,3 +110,25 @@ def tweet_action_view(request, *args, **kwargs):
             return Response(serializer.data, status=201)
 
     return Response({}, status=200)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])  
+def tweet_feed_view(request, *args, **kwargs):
+
+    username = request.GET.get('username')
+    user = request.user
+    # print(user, "********************")
+
+    profiles = user.following.all()
+
+    # print(user, "********************", profiles)
+    
+    followed_users_id = [ profile.user.id for profile in profiles ]
+    followed_users_id.append(user.id)
+    # will be changed to much efficient call
+    # print( followed_users_id )
+
+    allTweets = Tweet.objects.filter(user__id__in=followed_users_id).order_by("-timestamp")
+    serializer = TweetSerializer(allTweets, many=True)
+
+    return Response(serializer.data)
