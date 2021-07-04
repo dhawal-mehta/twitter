@@ -7,10 +7,7 @@ function App(props) {
   // console.log(props)
   return (
     <div className="App">
-
       <Homepage {...props} />
-      
-      
     </div>
   );
 }

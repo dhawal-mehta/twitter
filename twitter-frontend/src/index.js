@@ -26,7 +26,7 @@ if (tweetsEl){
   ReactDOM.render(
     <React.StrictMode>
       {/* // <NewApp /> */}
-      {e(App, tweetsEl.dataset)}
+      { e(App, tweetsEl.dataset) }
     </React.StrictMode>,
     document.getElementById('root')
   );

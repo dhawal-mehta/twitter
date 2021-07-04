@@ -8,7 +8,7 @@ from profiles.serializers import PublicProfileSerializer
 MAX_TWEET_LENGTH = settings.MAX_TWEET_LENGTH
 
 class TweetCreateSerializer(serializers.ModelSerializer):
-    user = PublicProfileSerializer(source='user.profile',read_only=True)
+    # user = PublicProfileSerializer(source='user.profile',read_only=True)
     likes = serializers.SerializerMethodField(read_only=True)    
     # parent = TweetSerializer(read_only=True)
     # modified =  serializers.HiddenField(default=timezone.now)
@@ -17,7 +17,7 @@ class TweetCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['user', 'id', 'content','likes', 'parent', 'timestamp']
+        fields = ['id', 'content','likes', 'parent', 'timestamp']
 
     def get_likes(self, obj):
         # print()
@@ -35,7 +35,7 @@ class TweetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['user','id', 'content','likes', 'parent', 'timestamp']
+        fields = ['user' ,'id', 'content','likes', 'parent', 'timestamp']
 
     # def get_parent(self, obj):
     #     # print(obj, "in the porche")

@@ -28,10 +28,13 @@ function lookup(apimethod, endpoint,callBck ,data=null){
 
       if (xhr.status === 200){
         //   console.log("xhr response", xhr.response)
-          callBck(xhr.response)
+        //   console.log(" calling callback ", xhr.response, ...(xhr.response.results))
+        //   let tempArr = res.results
+        //   console.log( tempArr )
+          callBck( res )
       }
       else if(xhr.status === 201){
-        // console.log("xhr response", xhr.response)
+        // console.log(" calling callback ", xhr.response)
         callBck(xhr.response)
       }
       else{
@@ -49,7 +52,7 @@ export function tweetsList(apimethod, endpoint, tweetsCbk, username){
     if (username){
         endpoint += `?username=${username}`
     }
-        
+
     lookup(apimethod, endpoint, tweetsCbk)
 }
 
