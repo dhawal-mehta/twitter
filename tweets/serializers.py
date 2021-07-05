@@ -3,25 +3,25 @@ from django.conf import settings
 from .models import Tweet
 from django.utils import timezone
 
+from profiles.serializers import PublicProfileSerializer
+
 MAX_TWEET_LENGTH = settings.MAX_TWEET_LENGTH
 
 class TweetCreateSerializer(serializers.ModelSerializer):
     likes = serializers.SerializerMethodField(read_only=True)
-    # parent = TweetSerializer(read_only=True)
-    # modified =  serializers.HiddenField(default=timezone.now)
-   
-    # parent = serializers.SerializerMethodField()
-
+    user = PublicProfileSerializer(source='user.profile', read_only=True)
+    
     class Meta:
         model = Tweet
-        fields = ['id', 'content','likes', 'parent']
+        fields = ['user','id', 'content','likes', 'parent', 'timestamp']
 
     def get_likes(self, obj):
         # print()
         return obj.likes.count()
-        
+
 
 class TweetSerializer(serializers.ModelSerializer):
+    user = PublicProfileSerializer(source='user.profile', read_only=True)
     likes = serializers.SerializerMethodField(read_only=True)
     parent = TweetCreateSerializer(read_only=True)
     # modified =  serializers.HiddenField(default=timezone.now)
@@ -30,7 +30,7 @@ class TweetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tweet
-        fields = ['id', 'content','likes', 'parent']
+        fields = ['user','id', 'content','likes', 'parent', 'timestamp']
 
 
 
